@@ -7,10 +7,12 @@ int main()
 {
 
 		cout << "************************************\n"
-		cout << "********        Billy       ********\n"
-		cout << "********        Shape       ********\n"
-		cout << "********        Maker       ********\n"
+		cout << "********       Billy        ********\n"
+		cout << "********       Shape        ********\n"
+		cout << "********       Maker        ********\n"
 		cout << "************************************\n"
+
+		cout << "Please enter "
 /*
 	ofstream MyFile("test.txt");
 
