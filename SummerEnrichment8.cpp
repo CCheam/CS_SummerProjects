@@ -18,9 +18,13 @@ int main()
 	//input ask/collection
 	cout << "Please enter the input file: ";
 	cin >>inp_file;
-	cout<<"Please input the shape, letter, and size to encode";
-	cin>>
-	cin>>
+	inp_file.open(inp_file);
+	if(){
+	cout<<"File successfully opened."
+	}
+	else{
+	cout<<"Error. Please try again."
+	}
 		/*
 			ofstream MyFile("test.txt");
 
