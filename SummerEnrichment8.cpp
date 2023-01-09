@@ -12,7 +12,7 @@ int main()
 	cout << "********       Maker        ********\n";
 	cout << "************************************\n";
 
-	cout << "Please enter ";
+	cout << "Please enter the input file: ";
 		/*
 			ofstream MyFile("test.txt");
 
