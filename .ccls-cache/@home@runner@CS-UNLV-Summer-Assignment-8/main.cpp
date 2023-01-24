@@ -7,13 +7,19 @@ using namespace std;
 
 void makeTriangle(ofstream &oFile, int size, char c);
 void makeEight(ofstream &, int, char);
-void makeSlash(/*ofstream& oFile,*/ int size, char c);
-void rowsize(double size);
+void makeSlash(ofstream &oFile, int size, char c);
 
 int main() {
-  // ofstream fOut;
-  ifstream fIn;
-  // makeTriangle(fOut,7, 60);
+
+  ofstream fOut("Output.txt", ios_base::out | ios_base::app);
+
+  makeTriangle(fOut, 9, 68);
+  
+  //makeEight(fOut, 10, 68);
+  
+  //makeSlash(fOut, 10, 68);
+
+  /*
   // title screen
   cout << "************************************\n";
   cout << "********       Billy        ********\n";
@@ -22,40 +28,68 @@ int main() {
   cout << "************************************\n";
   // variable setup
   string inp_file;
-  string out;
+  string inp;
   char letter;
   int size;
   // input ask/collection
   cout << "Please enter the input file: ";
   cin >> inp_file;
-  ofstream f(inp_file, ios_base::out | ios_base::app);
-  f.open(inp_file);
-  if (f.is_open()) {
+  // Input file specified
+  ifstream fIn(inp_file, ios_base::out | ios_base::app);
+  ofstream fOut;
+  //  Check if open and read line
+  if (fIn.is_open()) {
     cout << "File successfully opened." << endl;
-    while (getLine(f, out)) {
-      cout << out << endl;
+    //acts as a for loop with input lines from the file
+    while (std::getline(fIn, inp)) {
+
+    // if inp is not an enter
+    if (inp.find(" ") <= inp.size()){
+
+      // Shape vars
+      string shapeType = inp.substr(0, inp.find(" "));
+      string shapeTemp = inp.substr(inp.find(" "), inp.size()-1);
+      string shapeSize = shapeTemp.substr(0, shapeTemp.find(" ")); //
+
+      //Figure Eight Check
+      if (shapeType.compare("figureEight")) {
+        fstream outF(shapeType + "_" + shapeSize + ".txt", ios_base::out |
+  ios_base::app);
+      }
+      // Triangle Check
+      else if (shapeType.compare("triangle")) {
+        fstream outF(shapeType + "_" + shapeSize + ".txt", ios_base::out |
+  ios_base::app);
+      }
+      // Slash Check
+      else if (shapeType.compare("slash")) {
+        fstream outF(shapeType + "_" + shapeSize + ".txt", ios_base::out |
+  ios_base::app);
+      }
     }
+  }
   } else {
     cout << "Error. Please try again." << endl;
-  }
+  } */
+  return 0;
 }
 
 // Make Triangle
 void makeTriangle(ofstream &oFile, int size, char c) {
   int half = (size / 2);
-  cout << half << "\n";
+  cout << half << '\n';
 
   // Looping through Grid
-  for (int i = 0; i < size * 2; i++) {
-    for (int j = 0; j < size * 2; j++) {
+  for (int i = 0; i < size * 2; i++) { // row
+    for (int j = 0; j < size * 2; j++) { // column
       // even Numbers
       if (size % 2) {
-        if (j == (size) + i || j == (size)-i) {
+        if (j == size + i || j == size - i) {
           oFile << c;
         } else if (i == size - 1) {
           oFile << c;
         } else {
-          oFile << " ";
+          oFile << ' ';
         }
       }
       // odd Numbers
@@ -68,22 +102,22 @@ void makeTriangle(ofstream &oFile, int size, char c) {
         } else if (i == size - 1) {
           oFile << c;
         } else {
-          oFile << " ";
+          oFile << ' ';
         }
       }
     }
-    oFile << "\n";
+    oFile << '\n';
     // find center and move out by i each size
   }
   oFile.close();
 }
 
+// Make Slash
 void makeSlash(ofstream &oFile, int size, char c) {
-
   // make row
-  oFile << " ";
-  oFile << " ";
-  oFile << " ";
+  for (int i = 1; i <= 3; i++) {
+    oFile << ' ';
+  }
 
   int number = 1;
   for (int i = 1; i <= size; i++) {
@@ -106,12 +140,12 @@ void makeSlash(ofstream &oFile, int size, char c) {
 
     // Places the y-axis numbers
     if (i < 10) {
-      oFile << " ";
+      oFile << ' ';
       oFile << i;
-      oFile << " ";
+      oFile << ' ';
     } else {
       oFile << i;
-      oFile << " ";
+      oFile << ' ';
     }
 
     /* Loops though a line based on "size" and checks if current place is where
@@ -122,7 +156,7 @@ void makeSlash(ofstream &oFile, int size, char c) {
         oFile << c;
         part--;
       } else {
-        oFile << " ";
+        oFile << ' ';
       }
     }
     oFile << endl;
@@ -130,9 +164,9 @@ void makeSlash(ofstream &oFile, int size, char c) {
   oFile << endl;
 
   // makerow
-  oFile << " ";
-  oFile << " ";
-  oFile << " ";
+  for (int i = 1; i <= 3; i++) {
+    oFile << ' ';
+  }
 
   number = 1;
   for (int i = 1; i <= size; i++) {
@@ -145,26 +179,11 @@ void makeSlash(ofstream &oFile, int size, char c) {
   }
 
   // make row
-  oFile << " ";
-  oFile << " ";
-  oFile << " ";
+  for (int i = 1; i <= 3; i++) {
+    oFile << ' ';
+  }
 
   number = 1;
-  for (int i = 1; i <= size; i++) {
-    oFile << number;
-    if (number < 9) {
-      number++;
-    } else {
-      number = 0;
-    }
-  }
-}
-void rowsize(double size) {
-  oFile << " ";
-  oFile << " ";
-  oFile << " ";
-
-  int number = 1;
   for (int i = 1; i <= size; i++) {
     oFile << number;
     if (number < 9) {
@@ -176,6 +195,7 @@ void rowsize(double size) {
   oFile.close();
 }
 
+// Make Eight
 void makeEight(ofstream &oFile, int size, char c) {
   // Check if the size is greater than 9
   if (size > 9) {
